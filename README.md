@@ -1,0 +1,2 @@
+# ig
+interpreter  go
