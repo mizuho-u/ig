@@ -1,8 +1,9 @@
 package lexer
 
 import (
-	"go/token"
 	"testing"
+
+	"token"
 )
 
 func TestNextToken(t *testing.T) {
