@@ -1,6 +1,8 @@
 package lexer
 
-import "token"
+import (
+	"token"
+)
 
 // Lexer ...
 type Lexer struct {
@@ -56,6 +58,7 @@ func (l *Lexer) NextToken() token.Token {
 
 		if isLetter(l.ch) {
 			tok.Literal = l.readIdentifier()
+			tok.Type = token.LookupIdent(tok.Literal)
 			return tok
 		}
 
@@ -75,7 +78,7 @@ func (l *Lexer) readIdentifier() string {
 	for isLetter(l.ch) {
 		l.readChar()
 	}
-	return l.input[position:l.readPosition]
+	return l.input[position:l.position]
 }
 
 func isLetter(ch byte) bool {
