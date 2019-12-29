@@ -23,7 +23,10 @@ func New(l *lexer.Lexer) *Parser {
 		errors: []string{},
 	}
 
+	// peekToken = l.NextToken
 	p.nextToken()
+	// curToken = peekToken
+	// peekToken = l.NextToken
 	p.nextToken()
 
 	return p
