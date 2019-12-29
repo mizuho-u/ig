@@ -2,18 +2,18 @@ package ast
 
 import "token"
 
-// Node ...
+// Node ASTのノード
 type Node interface {
 	TokenLiteral() string
 }
 
-// Statement ...
+// Statement 文。Nodeを継承
 type Statement interface {
 	Node
 	statementNode()
 }
 
-// Expression ...
+// Expression 式。Nodeを継承
 type Expression interface {
 	Node
 	expressionNode()
@@ -55,3 +55,14 @@ func (i *Identifier) expressionNode() {}
 
 // TokenLiteral ...
 func (i *Identifier) TokenLiteral() string { return i.Token.Literal }
+
+// ReturnStatement ...
+type ReturnStatement struct {
+	Token       token.Token // 'return'
+	ReturnValue Expression
+}
+
+func (rs *ReturnStatement) statementNode() {}
+
+// TokenLiteral ...
+func (rs *ReturnStatement) TokenLiteral() string { return rs.Token.Literal }

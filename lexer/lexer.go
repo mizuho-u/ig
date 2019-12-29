@@ -4,7 +4,7 @@ import (
 	"token"
 )
 
-// Lexer ...
+// Lexer Struct
 type Lexer struct {
 	input        string
 	position     int
@@ -12,13 +12,14 @@ type Lexer struct {
 	ch           byte
 }
 
-// New ...
+// New create, initialize Lexer
 func New(input string) *Lexer {
 	l := &Lexer{input: input}
 	l.readChar()
 	return l
 }
 
+// readChar read a char, then increment readPosition for next
 func (l *Lexer) readChar() {
 	if l.readPosition >= len(l.input) {
 		l.ch = 0
@@ -29,11 +30,12 @@ func (l *Lexer) readChar() {
 	l.readPosition++
 }
 
-// NextToken ...
+// NextToken create Token and read nextchar
 func (l *Lexer) NextToken() token.Token {
 
 	var tok token.Token
 
+	// ホワイトスペースはいらない言語仕様
 	l.skipWhitespace()
 
 	switch l.ch {
@@ -82,8 +84,8 @@ func (l *Lexer) NextToken() token.Token {
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
+	// 文字列（キーワード含む）、数字
 	default:
-
 		if isLetter(l.ch) {
 			tok.Literal = l.readIdentifier()
 			tok.Type = token.LookupIdent(tok.Literal)
@@ -96,15 +98,17 @@ func (l *Lexer) NextToken() token.Token {
 
 		tok = newToken(token.ILLEGAL, l.ch)
 	}
-
+	// 次の文字を読み込む
 	l.readChar()
 	return tok
 }
 
+// newToken トークンインスタンスを生成
 func newToken(tokenType token.TokenType, ch byte) token.Token {
 	return token.Token{Type: tokenType, Literal: string(ch)}
 }
 
+// readIdentifier 識別子を読み込む
 func (l *Lexer) readIdentifier() string {
 	position := l.position
 	for isLetter(l.ch) {
@@ -113,12 +117,14 @@ func (l *Lexer) readIdentifier() string {
 	return l.input[position:l.position]
 }
 
+// skipWhitespace
 func (l *Lexer) skipWhitespace() {
 	for l.ch == ' ' || l.ch == '\t' || l.ch == '\n' || l.ch == '\r' {
 		l.readChar()
 	}
 }
 
+// readNumber 一続きの数値を読む
 func (l *Lexer) readNumber() string {
 	position := l.position
 	for isDigit(l.ch) {
@@ -127,6 +133,7 @@ func (l *Lexer) readNumber() string {
 	return l.input[position:l.position]
 }
 
+// peekChar 次の文字を調べる
 func (l *Lexer) peekChar() byte {
 	if l.readPosition >= len(l.input) {
 		return 0
@@ -135,10 +142,12 @@ func (l *Lexer) peekChar() byte {
 	return l.input[l.readPosition]
 }
 
+// isDigit 数字かどうか
 func isDigit(ch byte) bool {
 	return '0' <= ch && ch <= '9'
 }
 
+// isLetter 文字列かどうか
 func isLetter(ch byte) bool {
 	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
 }
