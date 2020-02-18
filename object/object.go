@@ -7,9 +7,11 @@ type ObjectType string
 
 // ObjectType
 const (
-	INTEGEROBJ = "INTEGER" // Integer
-	BOOLEANOBJ = "BOOLEAN" // Boolean
-	NULLOBJ    = "NULL"    // Null
+	INTEGEROBJ     = "INTEGER"      // Integer
+	BOOLEANOBJ     = "BOOLEAN"      // Boolean
+	NULLOBJ        = "NULL"         // Null
+	RETURNVALUEOBJ = "RETURN_VALUE" // Return
+	ERROROBJ       = "ERROR"        // Error
 )
 
 // Object ...
@@ -48,3 +50,14 @@ func (n *Null) Type() ObjectType { return NULLOBJ }
 
 // Inspect ...
 func (n *Null) Inspect() string { return "null" }
+
+// ReturnValue ....
+type ReturnValue struct {
+	Value Object
+}
+
+// Type ...
+func (rv *ReturnValue) Type() ObjectType { return RETURNVALUEOBJ }
+
+// Inspect ...
+func (rv *ReturnValue) Inspect() string { return rv.Value.Inspect() }
