@@ -1,6 +1,11 @@
 package object
 
-import "fmt"
+import (
+	"ast"
+	"bytes"
+	"fmt"
+	"strings"
+)
 
 // ObjectType ...
 type ObjectType string
@@ -12,6 +17,7 @@ const (
 	NULLOBJ        = "NULL"         // Null
 	RETURNVALUEOBJ = "RETURN_VALUE" // Return
 	ERROROBJ       = "ERROR"        // Error
+	FUNCTIONOBJ    = "FUNCTION"     // Function
 )
 
 // Object ...
@@ -72,3 +78,32 @@ func (e *Error) Type() ObjectType { return ERROROBJ }
 
 // Inspect ...
 func (e *Error) Inspect() string { return "ERROR: " + e.Message }
+
+// Function ...
+type Function struct {
+	Parameters []*ast.Identifier
+	Body       *ast.BlockStatement
+	Env        *Environment
+}
+
+// Type ...
+func (f *Function) Type() ObjectType { return FUNCTIONOBJ }
+
+// Inspect ...
+func (f *Function) Inspect() string {
+	var out bytes.Buffer
+
+	params := []string{}
+	for _, p := range f.Parameters {
+		params = append(params, p.String())
+	}
+
+	out.WriteString("fn")
+	out.WriteString("(")
+	out.WriteString(strings.Join(params, ", "))
+	out.WriteString(") {\n")
+	out.WriteString(f.Body.String())
+	out.WriteString("\n}")
+
+	return out.String()
+}
