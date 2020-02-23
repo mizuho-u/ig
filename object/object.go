@@ -18,6 +18,7 @@ const (
 	RETURNVALUEOBJ = "RETURN_VALUE" // Return
 	ERROROBJ       = "ERROR"        // Error
 	FUNCTIONOBJ    = "FUNCTION"     // Function
+	STRINGOBJ      = "STRING"       // String
 )
 
 // Object ...
@@ -107,3 +108,14 @@ func (f *Function) Inspect() string {
 
 	return out.String()
 }
+
+// String ...
+type String struct {
+	Value string
+}
+
+// Type ...
+func (s *String) Type() ObjectType { return STRINGOBJ }
+
+// Inspect ...
+func (s *String) Inspect() string { return s.Value }
