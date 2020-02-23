@@ -134,6 +134,10 @@ func TestIfElseExpression(t *testing.T) {
 		{"if (1 > 2) { 10 }", nil},
 		{"if (1 > 2) { 10 } else { 20 }", 20},
 		{"if (1 < 2) { 10 } else { 20 }", 10},
+		{`if ("hello" == "hello") { 10 } else { 20 }`, 10},
+		{`if ("hello" == "world") { 10 } else { 20 }`, 20},
+		{`if ("hello" != "hello") { 10 } else { 20 }`, 20},
+		{`if ("hello" != "world") { 10 } else { 20 }`, 10},
 	}
 
 	for _, tt := range tests {
@@ -331,5 +335,34 @@ func TestStringConcatenation(t *testing.T) {
 
 	if str.Value != "Hello World!" {
 		t.Errorf("String has wrong value. got=%q", str.Value)
+	}
+}
+
+func TestEvalStringLiteral(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected bool
+	}{
+		{
+			`"hello" == "hello"`,
+			true,
+		},
+		{
+			`"hello" != "world"`,
+			true,
+		},
+		{
+			`"hello" == "world"`,
+			false,
+		},
+		{
+			`"hello" != "hello"`,
+			false,
+		},
+	}
+
+	for _, tt := range tests {
+		evaluated := testEval(tt.input)
+		testBooleanObject(t, evaluated, tt.expected)
 	}
 }
