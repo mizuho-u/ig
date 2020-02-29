@@ -382,6 +382,13 @@ func TestBuiltinFunctions(t *testing.T) {
 		{`first([])`, NULL},
 		{`first([1, 2, 3])`, 1},
 		{`first([first([1,2,3])])`, 1},
+		{`first(1)`, "argument to `first` must be ARRAY, got INTEGER"},
+		{`first(1, 2, 3)`, "wrong number of arguments. got=3, want=1"},
+		{`first([first([1,2,3])])`, 1},
+		{`last([])`, NULL},
+		{`last([1, 2, 3])`, 3},
+		{`last(1)`, "argument to `first` must be ARRAY, got INTEGER"},
+		{`last(1, 2, 3)`, "wrong number of arguments. got=3, want=1"},
 	}
 
 	for _, tt := range tests {
