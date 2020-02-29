@@ -20,6 +20,7 @@ const (
 	FUNCTIONOBJ    = "FUNCTION"     // Function
 	STRINGOBJ      = "STRING"       // String
 	BUILTINOBJ     = "BUILTIN"      // BuiltinFunction
+	ARRAYOBJ       = "ARRAY"        // array
 )
 
 // Object ...
@@ -134,3 +135,27 @@ func (b *Builtin) Type() ObjectType { return BUILTINOBJ }
 
 // Inspect ...
 func (b *Builtin) Inspect() string { return "builtin function" }
+
+// Array ...
+type Array struct {
+	Elements []Object
+}
+
+// Type ...
+func (ao *Array) Type() ObjectType { return ARRAYOBJ }
+
+// Inspect ...
+func (ao *Array) Inspect() string {
+	var out bytes.Buffer
+
+	elements := []string{}
+	for _, e := range ao.Elements {
+		elements = append(elements, e.Inspect())
+	}
+
+	out.WriteString("[")
+	out.WriteString(strings.Join(elements, ", "))
+	out.WriteString("]")
+
+	return out.String()
+}
