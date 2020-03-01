@@ -4,4 +4,8 @@ interpreter  go
 # todo
 - unicode
 - float
-- escape string
+- escape
+- ハッシュ
+  - チェイン法
+  - オープンアドレス法
+  - キャッシュ
