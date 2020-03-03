@@ -23,6 +23,7 @@ const (
 	BUILTINOBJ     = "BUILTIN"      // BuiltinFunction
 	ARRAYOBJ       = "ARRAY"        // array
 	HASHOBJ        = "HASH"         // hash
+	QUOTEOBJ       = "QUOTE"        // quote
 )
 
 // Object ...
@@ -227,4 +228,17 @@ func (h *Hash) Inspect() string {
 	out.WriteString("}")
 
 	return out.String()
+}
+
+// Quote ...
+type Quote struct {
+	Node ast.Node
+}
+
+// Type ...
+func (q *Quote) Type() ObjectType { return QUOTEOBJ }
+
+// Inspect ...
+func (q *Quote) Inspect() string {
+	return "QUOTE(" + q.Node.String() + ")"
 }
