@@ -24,6 +24,7 @@ const (
 	ARRAYOBJ       = "ARRAY"        // array
 	HASHOBJ        = "HASH"         // hash
 	QUOTEOBJ       = "QUOTE"        // quote
+	MACROOBJ       = "MACRO"        // macro
 )
 
 // Object ...
@@ -241,4 +242,33 @@ func (q *Quote) Type() ObjectType { return QUOTEOBJ }
 // Inspect ...
 func (q *Quote) Inspect() string {
 	return "QUOTE(" + q.Node.String() + ")"
+}
+
+// Macro ...
+type Macro struct {
+	Parameters []*ast.Identifier
+	Body       *ast.BlockStatement
+	Env        *Environment
+}
+
+// Type ...
+func (m *Macro) Type() ObjectType { return MACROOBJ }
+
+// Inspect ...
+func (m *Macro) Inspect() string {
+	var out bytes.Buffer
+
+	params := []string{}
+	for _, p := range m.Parameters {
+		params = append(params, p.String())
+	}
+
+	out.WriteString("fn")
+	out.WriteString("(")
+	out.WriteString(strings.Join(params, ", "))
+	out.WriteString(") {\n")
+	out.WriteString(m.Body.String())
+	out.WriteString("\n}")
+
+	return out.String()
 }
