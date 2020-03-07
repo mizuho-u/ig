@@ -52,6 +52,9 @@ const (
 
 	// 文字列
 	STRING = "STRING"
+
+	// マクロ
+	MACRO = "MACRO"
 )
 
 var keywords = map[string]TokenType{
@@ -62,6 +65,7 @@ var keywords = map[string]TokenType{
 	"if":     IF,
 	"else":   ELSE,
 	"return": RETURN,
+	"macro":  MACRO,
 }
 
 // LookupIdent ...
