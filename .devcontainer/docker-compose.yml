@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  go:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sleep infinity
+    working_dir: /home/vscode/go/src/ig
+    volumes:
+      - ../:/home/vscode/go/src/ig
+    environment:
+      - "GOPATH=/home/vscode/go"
