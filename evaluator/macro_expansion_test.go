@@ -1,10 +1,10 @@
 package evaluator
 
 import (
-	"ast"
-	"lexer"
-	"object"
-	"parser"
+	"ig/ast"
+	"ig/lexer"
+	"ig/object"
+	"ig/parser"
 	"testing"
 )
 

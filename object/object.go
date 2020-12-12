@@ -1,10 +1,10 @@
 package object
 
 import (
-	"ast"
 	"bytes"
 	"fmt"
 	"hash/fnv"
+	"ig/ast"
 	"strings"
 )
 

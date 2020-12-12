@@ -1,8 +1,8 @@
 package ast
 
 import (
+	"ig/token"
 	"testing"
-	"token"
 )
 
 func TestString(t *testing.T) {

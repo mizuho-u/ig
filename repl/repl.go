@@ -2,12 +2,12 @@ package repl
 
 import (
 	"bufio"
-	"evaluator"
 	"fmt"
+	"ig/evaluator"
+	"ig/lexer"
+	"ig/object"
+	"ig/parser"
 	"io"
-	"lexer"
-	"object"
-	"parser"
 )
 
 // PROMPT ...

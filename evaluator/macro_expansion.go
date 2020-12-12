@@ -1,8 +1,8 @@
 package evaluator
 
 import (
-	"ast"
-	"object"
+	"ig/ast"
+	"ig/object"
 )
 
 // DefineMacros ...

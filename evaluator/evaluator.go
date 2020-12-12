@@ -1,9 +1,9 @@
 package evaluator
 
 import (
-	"ast"
 	"fmt"
-	"object"
+	"ig/ast"
+	"ig/object"
 )
 
 // Boolean/Null ref

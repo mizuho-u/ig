@@ -1,9 +1,9 @@
 package evaluator
 
 import (
-	"lexer"
-	"object"
-	"parser"
+	"ig/lexer"
+	"ig/object"
+	"ig/parser"
 	"testing"
 )
 

@@ -1,9 +1,9 @@
 package parser
 
 import (
-	"ast"
 	"fmt"
-	"lexer"
+	"ig/ast"
+	"ig/lexer"
 	"testing"
 )
 

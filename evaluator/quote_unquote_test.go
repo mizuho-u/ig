@@ -1,7 +1,7 @@
 package evaluator
 
 import (
-	"object"
+	"ig/object"
 	"testing"
 )
 

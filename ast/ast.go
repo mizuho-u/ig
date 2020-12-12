@@ -2,8 +2,8 @@ package ast
 
 import (
 	"bytes"
+	"ig/token"
 	"strings"
-	"token"
 )
 
 // Node ASTのノード

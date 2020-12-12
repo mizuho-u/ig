@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"token"
+	"ig/token"
 )
 
 // Lexer Struct
