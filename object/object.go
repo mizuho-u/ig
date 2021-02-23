@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"hash/fnv"
 	"ig/ast"
+	"ig/code"
 	"strings"
 )
 
@@ -13,18 +14,19 @@ type ObjectType string
 
 // ObjectType
 const (
-	INTEGEROBJ     = "INTEGER"      // Integer
-	BOOLEANOBJ     = "BOOLEAN"      // Boolean
-	NULLOBJ        = "NULL"         // Null
-	RETURNVALUEOBJ = "RETURN_VALUE" // Return
-	ERROROBJ       = "ERROR"        // Error
-	FUNCTIONOBJ    = "FUNCTION"     // Function
-	STRINGOBJ      = "STRING"       // String
-	BUILTINOBJ     = "BUILTIN"      // BuiltinFunction
-	ARRAYOBJ       = "ARRAY"        // array
-	HASHOBJ        = "HASH"         // hash
-	QUOTEOBJ       = "QUOTE"        // quote
-	MACROOBJ       = "MACRO"        // macro
+	INTEGEROBJ          = "INTEGER"      // Integer
+	BOOLEANOBJ          = "BOOLEAN"      // Boolean
+	NULLOBJ             = "NULL"         // Null
+	RETURNVALUEOBJ      = "RETURN_VALUE" // Return
+	ERROROBJ            = "ERROR"        // Error
+	FUNCTIONOBJ         = "FUNCTION"     // Function
+	STRINGOBJ           = "STRING"       // String
+	BUILTINOBJ          = "BUILTIN"      // BuiltinFunction
+	ARRAYOBJ            = "ARRAY"        // array
+	HASHOBJ             = "HASH"         // hash
+	QUOTEOBJ            = "QUOTE"        // quote
+	MACROOBJ            = "MACRO"        // macro
+	COMPILEDFUNCTIONOBJ = "COMPILED_FUNCTION_OBJ"
 )
 
 // Object ...
@@ -271,4 +273,15 @@ func (m *Macro) Inspect() string {
 	out.WriteString("\n}")
 
 	return out.String()
+}
+
+type CompiledFunction struct {
+	Instructions  code.Instructions
+	NumLocals     int
+	NumParameters int
+}
+
+func (cf *CompiledFunction) Type() ObjectType { return COMPILEDFUNCTIONOBJ }
+func (cf *CompiledFunction) Inspect() string {
+	return fmt.Sprintf("CompiledFunction[%p]", cf)
 }
