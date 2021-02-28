@@ -27,6 +27,7 @@ const (
 	QUOTEOBJ            = "QUOTE"        // quote
 	MACROOBJ            = "MACRO"        // macro
 	COMPILEDFUNCTIONOBJ = "COMPILED_FUNCTION_OBJ"
+	CLOSUREOBJ          = "CLOSURE"
 )
 
 // Object ...
@@ -284,4 +285,14 @@ type CompiledFunction struct {
 func (cf *CompiledFunction) Type() ObjectType { return COMPILEDFUNCTIONOBJ }
 func (cf *CompiledFunction) Inspect() string {
 	return fmt.Sprintf("CompiledFunction[%p]", cf)
+}
+
+type Closure struct {
+	Fn   *CompiledFunction
+	Free []Object
+}
+
+func (c *Closure) Type() ObjectType { return CLOSUREOBJ }
+func (c *Closure) Inspect() string {
+	return fmt.Sprintf("Closure[%p]", c)
 }
