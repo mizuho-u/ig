@@ -1,6 +1,9 @@
 # ig
 interpreter  go
 
+reference
+[Writing A Compiler In Go](https://compilerbook.com)
+
 # todo
 - unicode
 - float
